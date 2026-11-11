@@ -9,3 +9,5 @@ Work your bag. Get paid for it. A launchpad on Raydium LaunchLab where the curve
 - Env: `BAGWRKR_PAD` (the launchpad once created), optional `BAGWRKR_SALT` (for the clock-in codes), optional `RPC_URL`.
 
 Every transaction is signed in the visitor's own wallet. bagwrkr never holds keys or coins, never asks for an X password and never posts for anyone.
+
+Live: https://bagwrkr.vercel.app
