@@ -1,0 +1,21 @@
+{
+  "name": "bagwrkr",
+  "tag": "HmMwsB9G5oqW3RfuHsTqumPEsZwQd2hpmooAWTKvLETU",
+  "pad": null,
+  "feePct": 1,
+  "burnPct": 50,
+  "openUsd": [8000, 9000, 10000, 11000],
+  "openDefault": 10000,
+  "run": 7,
+  "maxFirstBuySol": 20,
+  "work": {
+    "minFollowers": 25,
+    "minAccountDays": 30,
+    "maxPostAgeHours": 168,
+    "postsPerDay": 10,
+    "decay": 0.85,
+    "capPerPost": 100,
+    "minHold": 100000,
+    "kind": { "post": 1, "quote": 0.8, "reply": 0.4 }
+  }
+}
