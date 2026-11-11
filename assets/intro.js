@@ -70,7 +70,8 @@
       if (k >= 1) finish(); }
     g.setTransform(D, 0, 0, D, 0, 0); const kb = clamp(t / T.end, 0, 1); g.fillStyle = 'rgba(255,255,255,.06)'; g.fillRect(0, H - 1, W, 1); g.fillStyle = 'rgba(255,255,255,.4)'; g.fillRect(0, H - 1, W * kb, 1); }
   // ---------------------------------------------------------------- out, and onto the floor
-  function finish(skipped) { if (done) return; done = true; cancelAnimationFrame(raf); if (!skipped) SND.thump(.5); setTimeout(() => SND.chime(), skipped ? 0 : 120);
+  let S3 = null;
+  function finish(skipped) { if (done) return; done = true; cancelAnimationFrame(raf); if (S3) S3.stop(); if (!skipped) SND.thump(.5); setTimeout(() => SND.chime(), skipped ? 0 : 120);
     SND.droneLevel(.035, 3); document.documentElement.classList.remove('pre-app'); window.ZI.active = false; if (window.ZI.onDone) window.ZI.onDone();
     el.classList.add('out'); setTimeout(() => el.remove(), 800); removeEventListener('keydown', key); }
   const key = e => { if (['Enter', 'Escape', ' '].includes(e.key)) { e.preventDefault(); SND.whoosh(.5, .1, true); finish(true); } };
@@ -81,5 +82,8 @@
   addEventListener('keydown', key); addEventListener('resize', () => { if (!done) size(); });
   document.addEventListener('z-audio', () => { if (SND.on && !done) SND.droneOn(.07); });
   paintSnd(); size(); if (SND.on) { SND.wake(); SND.droneOn(.07); }
-  raf = requestAnimationFrame(frame);
+  // the 3D intro (a worker sits down at the PC) when the browser has WebGL; the ASCII one above when it doesn't
+  const gl = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
+  if (gl && !window.__no3d) { cv.style.display = 'none'; import('/assets/intro3d.js?v=b2').then(m => { if (done) return; S3 = m.run({ host: el, FX, SND, done: () => finish() }); }).catch(() => { cv.style.display = ''; raf = requestAnimationFrame(frame); }); }
+  else raf = requestAnimationFrame(frame);
 })();
