@@ -84,6 +84,6 @@
   paintSnd(); size(); if (SND.on) { SND.wake(); SND.droneOn(.07); }
   // the 3D intro (a worker sits down at the PC) when the browser has WebGL; the ASCII one above when it doesn't
   const gl = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
-  if (gl && !window.__no3d) { cv.style.display = 'none'; import('/assets/intro3d.js?v=b2').then(m => { if (done) return; S3 = m.run({ host: el, FX, SND, done: () => finish() }); }).catch(() => { cv.style.display = ''; raf = requestAnimationFrame(frame); }); }
+  if (gl && !window.__no3d) { cv.style.display = 'none'; import('/assets/intro3d.js?v=b3').then(m => { if (done) return; S3 = m.run({ host: el, FX, SND, done: () => finish() }); }).catch(() => { cv.style.display = ''; raf = requestAnimationFrame(frame); }); }
   else raf = requestAnimationFrame(frame);
 })();
